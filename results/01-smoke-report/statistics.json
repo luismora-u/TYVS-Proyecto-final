@@ -1,0 +1,50 @@
+{
+  "GET /voters" : {
+    "transaction" : "GET /voters",
+    "sampleCount" : 40,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 7.6750000000000025,
+    "medianResTime" : 6.0,
+    "minResTime" : 3.0,
+    "maxResTime" : 36.0,
+    "pct1ResTime" : 11.899999999999999,
+    "pct2ResTime" : 14.0,
+    "pct3ResTime" : 36.0,
+    "throughput" : 1.4513788098693758,
+    "receivedKBytesPerSec" : 2.0121935663098696,
+    "sentKBytesPerSec" : 0.21969112844702468
+  },
+  "Total" : {
+    "transaction" : "Total",
+    "sampleCount" : 80,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 27.737499999999983,
+    "medianResTime" : 8.0,
+    "minResTime" : 3.0,
+    "maxResTime" : 1548.0,
+    "pct1ResTime" : 14.0,
+    "pct2ResTime" : 15.950000000000003,
+    "pct3ResTime" : 1548.0,
+    "throughput" : 2.728233809637486,
+    "receivedKBytesPerSec" : 2.112349680711387,
+    "sentKBytesPerSec" : 0.5827803153667769
+  },
+  "POST /register" : {
+    "transaction" : "POST /register",
+    "sampleCount" : 40,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 47.8,
+    "medianResTime" : 8.0,
+    "minResTime" : 4.0,
+    "maxResTime" : 1548.0,
+    "pct1ResTime" : 14.899999999999999,
+    "pct2ResTime" : 17.89999999999999,
+    "pct3ResTime" : 1548.0,
+    "throughput" : 1.375373929787161,
+    "receivedKBytesPerSec" : 0.22296100814909053,
+    "sentKBytesPerSec" : 0.37940307696936354
+  }
+}
