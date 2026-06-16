@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Controlador REST de la Registraduria.
@@ -36,6 +38,17 @@ public class RegistryController {
 
     public RegistryController(Registry registry) {
         this.registry = registry;
+    }
+
+    @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ApiInfo home() {
+        Map<String, String> endpoints = new LinkedHashMap<>();
+        endpoints.put("POST /register", "Registrar votante");
+        endpoints.put("GET /voters/{id}", "Consultar votante por documento");
+        endpoints.put("GET /voters", "Listar votantes registrados");
+        endpoints.put("DELETE /voters/{id}", "Eliminar votante");
+        endpoints.put("GET /stats", "Estadisticas del padron");
+        return new ApiInfo("Registraduria API", "1.0.0", endpoints);
     }
 
     @PostMapping(path = "/register",

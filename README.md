@@ -30,6 +30,7 @@ peticiones de carga · DRE 100 %.
 
 | Método | Endpoint | Descripción | Respuestas |
 |--------|----------|-------------|-----------|
+| GET | `/` | Índice de la API (servicio + endpoints) | 200 |
 | POST | `/register` | Registrar votante (reglas de negocio) | 200 (texto) / 400 |
 | GET | `/voters/{id}` | Consultar votante | 200 / 404 |
 | GET | `/voters` | Listar votantes | 200 |
