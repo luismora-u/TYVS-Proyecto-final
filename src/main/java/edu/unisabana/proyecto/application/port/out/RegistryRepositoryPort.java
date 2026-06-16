@@ -2,6 +2,7 @@ package edu.unisabana.proyecto.application.port.out;
 
 import edu.unisabana.proyecto.infrastructure.persistence.RegistryRecord;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -25,6 +26,12 @@ public interface RegistryRepositoryPort {
 
     /** Busca un registro por su documento. */
     Optional<RegistryRecord> findById(int id) throws Exception;
+
+    /** Devuelve todos los registros ordenados por documento. */
+    List<RegistryRecord> findAll() throws Exception;
+
+    /** Borra un registro por su documento. Devuelve {@code true} si existia y se borro. */
+    boolean deleteById(int id) throws Exception;
 
     /** Borra todos los registros (util para aislar pruebas). */
     void deleteAll() throws Exception;

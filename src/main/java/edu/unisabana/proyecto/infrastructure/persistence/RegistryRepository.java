@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -85,6 +87,33 @@ public class RegistryRepository implements RegistryRepositoryPort {
                         rs.getInt("age"),
                         rs.getBoolean("is_alive")));
             }
+        }
+    }
+
+    @Override
+    public List<RegistryRecord> findAll() throws Exception {
+        final String sql = "SELECT id, name, age, is_alive FROM registry ORDER BY id";
+        List<RegistryRecord> out = new ArrayList<>();
+        try (Connection con = getConnection();
+             Statement st = con.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+                out.add(new RegistryRecord(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getInt("age"),
+                        rs.getBoolean("is_alive")));
+            }
+        }
+        return out;
+    }
+
+    @Override
+    public boolean deleteById(int id) throws Exception {
+        final String sql = "DELETE FROM registry WHERE id = ?";
+        try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
         }
     }
 
