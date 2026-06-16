@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard de Calidad — Proyecto Final (Registraduría)</title>
+<style>
+  :root{
+    --bg:#0f172a; --card:#1e293b; --muted:#94a3b8; --text:#e2e8f0; --accent:#38bdf8;
+    --critico:#ef4444; --mayor:#f97316; --menor:#eab308;
+    --cerrado:#22c55e; --abierto:#f59e0b;
+    --b1:#38bdf8; --b2:#818cf8; --b3:#22d3ee; --b4:#a78bfa;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);padding:24px;}
+  h1{font-size:1.6rem;margin:0 0 4px;}
+  .sub{color:var(--muted);margin:0 0 24px;font-size:.9rem;}
+  .grid{display:grid;gap:16px;}
+  .kpis{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-bottom:24px;}
+  .charts{grid-template-columns:repeat(auto-fit,minmax(320px,1fr));}
+  .card{background:var(--card);border-radius:12px;padding:18px 20px;box-shadow:0 1px 3px rgba(0,0,0,.4);}
+  .kpi .val{font-size:2.2rem;font-weight:700;line-height:1;}
+  .kpi .lbl{color:var(--muted);font-size:.8rem;margin-top:6px;text-transform:uppercase;letter-spacing:.04em;}
+  .kpi .val.good{color:var(--cerrado);} .kpi .val.warn{color:var(--abierto);} .kpi .val.acc{color:var(--accent);}
+  .card h3{margin:0 0 16px;font-size:1rem;}
+  .bar-row{display:flex;align-items:center;margin-bottom:10px;font-size:.85rem;}
+  .bar-row .name{width:130px;flex-shrink:0;color:var(--muted);}
+  .bar-track{flex:1;background:#0b1220;border-radius:6px;overflow:hidden;height:22px;}
+  .bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-weight:600;color:#0b1220;font-size:.8rem;min-width:24px;}
+  .donut-wrap{display:flex;align-items:center;gap:24px;}
+  .donut{width:140px;height:140px;border-radius:50%;
+    background:conic-gradient(var(--cerrado) 0 66.67%, var(--abierto) 66.67% 100%);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .donut::after{content:"6";font-size:1.6rem;font-weight:700;width:84px;height:84px;background:var(--card);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+  .legend{font-size:.85rem;} .legend div{margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+  .dot{width:12px;height:12px;border-radius:3px;display:inline-block;}
+  table{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:8px;}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid #334155;}
+  th{color:var(--muted);text-transform:uppercase;font-size:.72rem;letter-spacing:.04em;}
+  .tag{padding:2px 8px;border-radius:999px;font-size:.72rem;font-weight:600;color:#0b1220;}
+  .full{grid-column:1/-1;}
+  .note{color:var(--muted);font-size:.78rem;margin-top:12px;line-height:1.5;}
+</style>
+</head>
+<body>
+  <h1>Dashboard de Calidad — Proyecto Final (Registraduría)</h1>
+  <p class="sub">Gestión de defectos · Testing y Validación de Software · U. de La Sabana · Datos: <code>data/defectos.csv</code> (6 defectos) · Suite: 34 pruebas · Cobertura: 91.5%</p>
+
+  <div class="grid kpis">
+    <div class="card kpi"><div class="val acc">6</div><div class="lbl">Defectos totales</div></div>
+    <div class="card kpi"><div class="val good">4</div><div class="lbl">Cerrados</div></div>
+    <div class="card kpi"><div class="val warn">2</div><div class="lbl">Abiertos (backlog)</div></div>
+    <div class="card kpi"><div class="val good">66.7%</div><div class="lbl">Tasa de cierre</div></div>
+    <div class="card kpi"><div class="val acc">100%</div><div class="lbl">DRE</div></div>
+    <div class="card kpi"><div class="val good">0</div><div class="lbl">Escapados a producción</div></div>
+  </div>
+
+  <div class="grid charts">
+    <div class="card">
+      <h3>Defectos por severidad</h3>
+      <div class="bar-row"><span class="name">Crítico</span><div class="bar-track"><div class="bar-fill" style="width:33%;background:var(--critico)">1</div></div></div>
+      <div class="bar-row"><span class="name">Mayor</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--mayor)">3</div></div></div>
+      <div class="bar-row"><span class="name">Menor</span><div class="bar-track"><div class="bar-fill" style="width:66%;background:var(--menor)">2</div></div></div>
+    </div>
+
+    <div class="card">
+      <h3>Estado del ciclo de vida</h3>
+      <div class="donut-wrap">
+        <div class="donut"></div>
+        <div class="legend">
+          <div><span class="dot" style="background:var(--cerrado)"></span> Cerrado — 4 (66.7%)</div>
+          <div><span class="dot" style="background:var(--abierto)"></span> Abierto — 2 (33.3%)</div>
+          <div class="note" style="margin-top:4px;">Los 2 abiertos son hallazgos de<br>rendimiento (backlog priorizado).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Defectos por prioridad</h3>
+      <div class="bar-row"><span class="name">P1 – Alta</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--b1)">4</div></div></div>
+      <div class="bar-row"><span class="name">P2 – Media</span><div class="bar-track"><div class="bar-fill" style="width:25%;background:var(--b2)">1</div></div></div>
+      <div class="bar-row"><span class="name">P3 – Baja</span><div class="bar-track"><div class="bar-fill" style="width:25%;background:var(--b3)">1</div></div></div>
+    </div>
+
+    <div class="card">
+      <h3>Defectos por tipo</h3>
+      <div class="bar-row"><span class="name">Funcional</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--b1)">3</div></div></div>
+      <div class="bar-row"><span class="name">Rendimiento</span><div class="bar-track"><div class="bar-fill" style="width:66%;background:var(--b2)">2</div></div></div>
+      <div class="bar-row"><span class="name">Técnico</span><div class="bar-track"><div class="bar-fill" style="width:33%;background:var(--b3)">1</div></div></div>
+    </div>
+
+    <div class="card">
+      <h3>Eficacia por fase de detección</h3>
+      <div class="bar-row"><span class="name">Integración</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--b1)">3</div></div></div>
+      <div class="bar-row"><span class="name">Rendimiento</span><div class="bar-track"><div class="bar-fill" style="width:66%;background:var(--b2)">2</div></div></div>
+      <div class="bar-row"><span class="name">Sistema</span><div class="bar-track"><div class="bar-fill" style="width:33%;background:var(--b3)">1</div></div></div>
+      <p class="note">Todas las detecciones ocurrieron <b>antes de liberar</b> → DRE = 100 %.</p>
+    </div>
+
+    <div class="card">
+      <h3>Indicadores derivados</h3>
+      <div class="bar-row"><span class="name">% Cerrados</span><div class="bar-track"><div class="bar-fill" style="width:67%;background:var(--cerrado)">67%</div></div></div>
+      <div class="bar-row"><span class="name">% P1 (alta)</span><div class="bar-track"><div class="bar-fill" style="width:67%;background:var(--critico)">67%</div></div></div>
+      <div class="bar-row"><span class="name">% Rendimiento</span><div class="bar-track"><div class="bar-fill" style="width:33%;background:var(--mayor)">33%</div></div></div>
+      <p class="note">Los 2 abiertos (rendimiento) son los que la suite funcional no podía
+      revelar: las pruebas de carga aportaron una capa de detección complementaria.</p>
+    </div>
+  </div>
+
+  <div class="card full" style="margin-top:16px;">
+    <h3>Registro de defectos</h3>
+    <table>
+      <thead><tr><th>ID</th><th>Título</th><th>Tipo</th><th>Severidad</th><th>Prioridad</th><th>Fase</th><th>Estado</th></tr></thead>
+      <tbody>
+        <tr><td>DEF-03</td><td>Doble inscripción del mismo documento</td><td>Funcional</td><td><span class="tag" style="background:var(--critico)">Crítico</span></td><td>P1</td><td>Integración</td><td><span class="tag" style="background:var(--cerrado)">Cerrado</span></td></tr>
+        <tr><td>DEF-01</td><td>GET /voters se degrada bajo carga (sin paginación)</td><td>Rendimiento</td><td><span class="tag" style="background:var(--mayor)">Mayor</span></td><td>P1</td><td>Rendimiento</td><td><span class="tag" style="background:var(--abierto)">Abierto</span></td></tr>
+        <tr><td>DEF-04</td><td>REST devuelve 500 ante género inválido</td><td>Funcional</td><td><span class="tag" style="background:var(--mayor)">Mayor</span></td><td>P1</td><td>Sistema</td><td><span class="tag" style="background:var(--cerrado)">Cerrado</span></td></tr>
+        <tr><td>DEF-05</td><td>Menor de edad queda persistido</td><td>Funcional</td><td><span class="tag" style="background:var(--mayor)">Mayor</span></td><td>P1</td><td>Integración</td><td><span class="tag" style="background:var(--cerrado)">Cerrado</span></td></tr>
+        <tr><td>DEF-06</td><td>Excepción de BD se propaga cruda</td><td>Técnico</td><td><span class="tag" style="background:var(--menor)">Menor</span></td><td>P2</td><td>Integración</td><td><span class="tag" style="background:var(--cerrado)">Cerrado</span></td></tr>
+        <tr><td>DEF-02</td><td>p99 elevado por cold-start de la JVM</td><td>Rendimiento</td><td><span class="tag" style="background:var(--menor)">Menor</span></td><td>P3</td><td>Rendimiento</td><td><span class="tag" style="background:var(--abierto)">Abierto</span></td></tr>
+      </tbody>
+    </table>
+    <p class="note">Dashboard autocontenido (sin dependencias externas). Fuente: <code>../data/defectos.csv</code>.
+    Detalle del ciclo de vida en <code>../docs/REPORTE-DEFECTOS.md</code>.</p>
+  </div>
+</body>
+</html>
